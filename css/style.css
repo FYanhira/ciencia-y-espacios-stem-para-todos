@@ -264,8 +264,8 @@ h3 {
 }
 
 .hero-image {
-  width: min(100%, 520px);
-  min-height: 500px;
+  width: min(100%, 600px);
+  min-height: 440px;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 24px 60px rgba(17, 43, 47, 0.12);
@@ -280,19 +280,15 @@ h3 {
 
 .hero-team-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  grid-template-rows: 1.15fr 0.85fr;
-  grid-template-areas:
-    "main top"
-    "main bottom";
-  gap: 12px;
-  padding: 12px;
+  grid-template-columns: 1.05fr 1fr 1fr;
+  grid-template-areas: "main top bottom";
+  gap: 16px;
+  padding: 16px;
   background: linear-gradient(135deg, rgba(217, 239, 233, 0.95) 0%, rgba(241, 232, 200, 0.95) 100%);
 }
 
 .hero-team-grid .team-placeholder-main {
   grid-area: main;
-  aspect-ratio: 0.78 / 1;
 }
 
 .hero-team-grid .team-placeholder-top {
@@ -304,7 +300,7 @@ h3 {
 }
 
 .team-placeholder {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 0.88 / 1;
   min-height: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -319,15 +315,15 @@ h3 {
 }
 
 .hero-team-grid .team-placeholder-top img {
-  object-position: center top;
+  object-position: center 12%;
 }
 
 .hero-team-grid .team-placeholder-bottom img {
-  object-position: center center;
+  object-position: center 12%;
 }
 
 .hero-team-grid .team-placeholder-main img {
-  object-position: center 22%;
+  object-position: center 10%;
 }
 
 .section-heading {
@@ -504,11 +500,11 @@ h3 {
   }
 
   .hero-team-grid .team-placeholder-main {
-    aspect-ratio: 0.92 / 1;
+    aspect-ratio: 0.96 / 1;
   }
 
   .team-placeholder {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 0.96 / 1;
     min-height: 0;
   }
 }
