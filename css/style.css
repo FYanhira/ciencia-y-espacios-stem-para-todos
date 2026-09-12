@@ -249,22 +249,27 @@ h3 {
 
 .hero-team-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1.35fr 0.95fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "main top"
+    "main bottom";
   gap: 14px;
   padding: 14px;
   background: linear-gradient(135deg, #d9efe9 0%, #f1e8c8 100%);
 }
 
 .hero-team-grid .team-placeholder-main {
-  grid-row: span 2;
+  grid-area: main;
+  aspect-ratio: 0.85 / 1;
 }
 
 .hero-team-grid .team-placeholder-top {
-  align-self: start;
+  grid-area: top;
 }
 
 .hero-team-grid .team-placeholder-bottom {
-  align-self: end;
+  grid-area: bottom;
 }
 
 .team-placeholder {
@@ -431,10 +436,15 @@ h3 {
 @media (max-width: 900px) {
   .hero-team-grid {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "main"
+      "top"
+      "bottom";
   }
 
   .hero-team-grid .team-placeholder-main {
-    grid-row: auto;
+    aspect-ratio: 1 / 1;
   }
 
   .team-placeholder {
