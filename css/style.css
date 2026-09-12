@@ -265,7 +265,7 @@ h3 {
 
 .hero-image {
   width: min(100%, 600px);
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 1;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 24px 60px rgba(17, 43, 47, 0.12);
@@ -280,14 +280,14 @@ h3 {
 
 .hero-team-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  padding: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
   background: linear-gradient(135deg, rgba(217, 239, 233, 0.95) 0%, rgba(241, 232, 200, 0.95) 100%);
 }
 
 .team-placeholder {
+  aspect-ratio: 1 / 1;
   height: 100%;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -311,12 +311,6 @@ h3 {
 
 .hero-team-grid .team-placeholder-main img {
   object-position: center 15%;
-}
-
-.hero-team-grid .team-logo img {
-  object-fit: contain;
-  object-position: center center;
-  background: #fff;
 }
 
 .section-heading {
@@ -485,11 +479,22 @@ h3 {
 @media (max-width: 900px) {
   .hero-team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
   }
 
   .hero-image {
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+
+  .team-placeholder {
     aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-team-grid {
+    grid-template-columns: 1fr;
   }
 }
 
