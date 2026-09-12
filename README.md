@@ -1,4 +1,6 @@
-# Ciencia para todas y todos
+# ciencia-y-espacios-stem-para-todos
+
+Espacio dedicado a la divulgación científica y al diseño de experiencias STEM prácticas, creativas e inclusivas para niñas, niños y jóvenes.
 
 Esta es una página web de una sola pantalla enfocada en talleres STEM para niñas y niños, pensada para publicarse en GitHub Pages.
 
