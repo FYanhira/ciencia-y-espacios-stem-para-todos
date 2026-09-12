@@ -484,17 +484,12 @@ h3 {
 
 @media (max-width: 900px) {
   .hero-team-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
   }
 
   .hero-image {
-    aspect-ratio: auto;
-    min-height: 0;
-  }
-
-  .team-placeholder {
-    height: 220px;
+    aspect-ratio: 1 / 1;
   }
 }
 
