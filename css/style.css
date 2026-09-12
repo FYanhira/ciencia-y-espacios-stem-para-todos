@@ -265,7 +265,7 @@ h3 {
 
 .hero-image {
   width: min(100%, 600px);
-  min-height: 440px;
+  height: clamp(380px, 46vw, 470px);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 24px 60px rgba(17, 43, 47, 0.12);
@@ -280,28 +280,33 @@ h3 {
 
 .hero-team-grid {
   display: grid;
-  grid-template-columns: 1.05fr 1fr 1fr;
-  grid-template-areas: "main top bottom";
-  gap: 16px;
-  padding: 16px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "main top"
+    "main bottom";
+  gap: 14px;
+  padding: 14px;
   background: linear-gradient(135deg, rgba(217, 239, 233, 0.95) 0%, rgba(241, 232, 200, 0.95) 100%);
 }
 
 .hero-team-grid .team-placeholder-main {
   grid-area: main;
+  height: 100%;
 }
 
 .hero-team-grid .team-placeholder-top {
   grid-area: top;
+  height: 100%;
 }
 
 .hero-team-grid .team-placeholder-bottom {
   grid-area: bottom;
+  height: 100%;
 }
 
 .team-placeholder {
-  aspect-ratio: 0.88 / 1;
-  min-height: 0;
+  height: 100%;
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 12px 28px rgba(17, 43, 47, 0.08);
@@ -323,7 +328,7 @@ h3 {
 }
 
 .hero-team-grid .team-placeholder-main img {
-  object-position: center 10%;
+  object-position: center 12%;
 }
 
 .section-heading {
@@ -499,13 +504,17 @@ h3 {
       "bottom";
   }
 
+  .hero-image {
+    height: auto;
+    min-height: 0;
+  }
+
   .hero-team-grid .team-placeholder-main {
-    aspect-ratio: 0.96 / 1;
+    height: 100%;
   }
 
   .team-placeholder {
-    aspect-ratio: 0.96 / 1;
-    min-height: 0;
+    height: 220px;
   }
 }
 
