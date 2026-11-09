@@ -1,0 +1,36 @@
+/* Solo facilitador — no incluir en páginas de participantes */
+window.STEM_CLAVE = {
+  k1: "B",
+  k2: "B",
+  k3: "C",
+  k4: "B",
+  k5: "B",
+  k6: "C",
+  k7: "C",
+  k8: "B",
+  c1_1: "B",
+  c1_2: "B",
+  c1_3: "C",
+  c2_1: "A",
+  c2_2: "B",
+  c2_3: "B",
+  c3_1: "B",
+  c3_2: "C",
+  c3_3: "B",
+  p1: "B",
+  p2: "B",
+  p3: "C",
+  p4: "A",
+  p5: "B",
+  p6: "C",
+  p7: "C",
+  p8: "B",
+};
+
+window.STEM_BLOQUES = {
+  pre: ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8"],
+  c1: ["c1_1", "c1_2", "c1_3"],
+  c2: ["c2_1", "c2_2", "c2_3"],
+  c3: ["c3_1", "c3_2", "c3_3"],
+  post: ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"],
+};

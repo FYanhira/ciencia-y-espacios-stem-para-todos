@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Encuesta de experiencia - Mujeres en la Ciencia 2026</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+    <style>
+      .likert-row { display: flex; flex-wrap: wrap; gap: 0.35rem 0.75rem; margin-top: 0.5rem; }
+      .likert-row label { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.95rem; }
+      .bloque-titulo { font-weight: 600; margin: 1.25rem 0 0.5rem; color: var(--accent); }
+      textarea { width: 100%; min-height: 4rem; padding: 0.5rem; font: inherit; }
+      .ok-msg { background: #e8f5e9; border: 1px solid #a5d6a7; padding: 1rem; border-radius: 8px; margin-top: 1rem; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1 id="titulo-doc"></h1>
+        <p id="subtitulo-doc"></p>
+        <p class="aviso-id" id="aviso-post">
+          Usa el <strong>mismo ID anónimo</strong> de la prueba del taller (ej. B1-07, A2-03).
+          Tiempo aproximado: 5 min.
+        </p>
+      </header>
+      <form id="form-encuesta">
+        <div id="meta-box" class="meta-box">
+          <div class="campo-meta">
+            <label for="id_anonimo">ID anónimo</label>
+            <input type="text" id="id_anonimo" name="id_anonimo" required placeholder="B1-07" />
+          </div>
+          <div class="campo-meta">
+            <label for="brigada">Brigada</label>
+            <select id="brigada" name="brigada" required>
+              <option value="">Elige...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+        </div>
+        <p id="escala-leyenda" class="small" style="color: #555"></p>
+        <div id="items-box"></div>
+        <div class="item" style="margin-top: 1.5rem">
+          <label for="abierta">Opcional: ¿Qué parte del taller te ayudó más? (respuesta breve)</label>
+          <textarea id="abierta" name="abierta" maxlength="500"></textarea>
+        </div>
+        <div class="acciones">
+          <button type="submit" class="btn-prim">Enviar y descargar mi respuesta (CSV)</button>
+        </div>
+      </form>
+      <div id="mensaje-ok" hidden class="ok-msg"></div>
+      <p class="small" style="margin-top: 2rem">
+        <a href="index.html">Volver a la prueba de conocimiento</a> |
+        <a href="../index.html">Menú del lab</a>
+      </p>
+    </div>
+    <script src="js/encuesta_satisfaccion_items.js"></script>
+    <script src="js/almacen_sat.js"></script>
+    <script src="js/encuesta_satisfaccion_ui.js"></script>
+  </body>
+</html>

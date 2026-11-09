@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Limpiar PC para nueva brigada — STEM 2026</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Limpiar esta computadora</h1>
+        <p>Solo facilitadoras · entre Brigada 1 y Brigada 2 (o al cambiar turno).</p>
+      </header>
+
+      <div class="aviso aviso-fuerte">
+        Antes de limpiar, asegúrate de que los CSV de la brigada que termina ya estén en la USB
+        o en el panel facilitador.
+      </div>
+
+      <div class="card">
+        <p class="meta-line">
+          Esto borra las respuestas del cuestionario guardadas en <strong>esta PC</strong> (Chrome
+          en <code>127.0.0.1</code>). El simulador no guarda prueba; no hace falta reiniciarlo.
+        </p>
+        <button type="button" id="btn-exportar">Descargar todo lo guardado en esta PC (1 CSV)</button>
+        <p class="meta-line small">
+          Incluye a quienes terminaron en esta máquina (Brigada 1 y 2 si hubo turnos). Guarda el
+          archivo en la USB.
+        </p>
+        <button type="button" id="btn-limpiar" class="secundario">
+          Borrar datos del cuestionario en esta PC
+        </button>
+        <p class="meta-line" id="resultado"></p>
+      </div>
+
+      <footer><a href="facilitador.html">Panel facilitador</a></footer>
+    </div>
+    <script src="js/almacen.js"></script>
+    <script>
+      const PREFIX = "stem_mujeres_2026_";
+      document.getElementById("btn-exportar").addEventListener("click", () => {
+        const n = window.STEM_ALMACEN.downloadAllCsvFromThisPc();
+        document.getElementById("resultado").textContent =
+          n > 0
+            ? `Descargado 1 CSV con ${n} participante(s). Cópialo a la USB.`
+            : "No hay cuestionarios guardados en esta PC.";
+      });
+      document.getElementById("btn-limpiar").addEventListener("click", () => {
+        if (
+          !confirm(
+            "¿Borrar todas las respuestas del cuestionario en ESTA computadora?\n\nNo se puede deshacer."
+          )
+        ) {
+          return;
+        }
+        const keys = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith(PREFIX)) keys.push(k);
+        }
+        keys.forEach((k) => localStorage.removeItem(k));
+        document.getElementById("resultado").textContent =
+          keys.length > 0
+            ? `Listo: se borraron ${keys.length} registro(s). La Brigada 2 puede usar Hoja 1 desde cero.`
+            : "No había datos guardados (esta PC ya estaba limpia).";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Facilitadora - encuestas de satisfacción</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Encuestas de satisfacción (Likert)</h1>
+        <p>Solo facilitadora. Respuestas guardadas en <strong>esta computadora</strong>.</p>
+      </header>
+      <p>
+        Liga para participantes (mismo lab):
+        <code>/cuestionario/encuesta_satisfaccion.html</code>
+      </p>
+      <p>
+        Cada participante descarga su CSV al enviar. Reúne los archivos
+        <code>STEM2026_SAT_*.csv</code> en
+        <code>docs/RESPUESTAS/encuesta_satisfaccion/</code>.
+      </p>
+      <div class="acciones">
+        <button type="button" id="btn-all" class="btn-prim">
+          Descargar consolidado de esta PC
+        </button>
+      </div>
+      <p id="status"></p>
+      <ul id="lista"></ul>
+      <p><a href="facilitador.html">Panel de la prueba de conocimiento</a></p>
+    </div>
+    <script src="js/almacen_sat.js"></script>
+    <script>
+      const recs = window.STEM_ALMACEN_SAT.loadAllRecords();
+      const ul = document.getElementById("lista");
+      if (!recs.length) {
+        ul.innerHTML = "<li>Ninguna encuesta en el almacenamiento de esta PC.</li>";
+      } else {
+        recs.forEach((r) => {
+          const li = document.createElement("li");
+          li.textContent =
+            r.id_anonimo + " (brigada " + r.brigada + ") - " + (r.exportado_en || "");
+          ul.appendChild(li);
+        });
+      }
+      document.getElementById("btn-all").onclick = function () {
+        const n = window.STEM_ALMACEN_SAT.downloadAllFromThisPc();
+        document.getElementById("status").textContent = n
+          ? "Descargadas " + n + " respuestas."
+          : "No hay respuestas en esta PC.";
+      };
+    </script>
+  </body>
+</html>

@@ -4,6 +4,10 @@ Espacio dedicado a la divulgación científica y al diseño de experiencias STEM
 
 Esta es una página web de una sola pantalla enfocada en talleres STEM para niñas y niños, pensada para publicarse en GitHub Pages.
 
+## STEM2026_Lab (taller *Mujeres en la Ciencia 2026*)
+
+Carpeta **[`STEM2026_Lab/`](STEM2026_Lab/)**: paquete portable (cuestionario embebido, simulador cualitativo y encuesta Likert) usado en el taller de circuitos en papel documentado en 2026. Instrucciones detalladas en español: [`STEM2026_Lab/LEEME.txt`](STEM2026_Lab/LEEME.txt). Resumen en inglés para replicación: [`STEM2026_Lab/README_EN.md`](STEM2026_Lab/README_EN.md).
+
 ## Archivos
 
 - `index.html` – estructura de la página

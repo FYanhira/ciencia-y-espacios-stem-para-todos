@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>STEM 2026 — Cuestionario (lab)</title>
+    <meta name="theme-color" content="#1565c0" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1 id="titulo-doc">Prueba de conocimiento — Circuitos en papel</h1>
+        <p id="subtitulo-doc">Mujeres en la Ciencia 2026 · Lab UANL</p>
+      </header>
+
+      <div class="aviso aviso-fuerte">
+        <strong>No avances por tu cuenta.</strong> La facilitadora dirá qué hoja abrir en cada
+        momento. No necesitas cuenta de Google ni correo.
+      </div>
+
+      <div class="card">
+        <h2>Participantes</h2>
+        <p class="meta-line">
+          Usa <strong>la misma computadora</strong> durante todo el taller. En la <strong>Hoja 1</strong>
+          registrarás tu ID anónimo (ej. B1-07).
+        </p>
+        <ul class="enlaces-hojas">
+          <li>
+            <a href="hoja1.html">Hoja 1 — Pre-test <span class="nota">(inicio del taller)</span></a>
+          </li>
+          <li>
+            <a href="hoja2.html">Hoja 2 — Checkpoint C1 <span class="nota">(después Fase 1)</span></a>
+          </li>
+          <li>
+            <a href="hoja3.html">Hoja 3 — Checkpoint C2 <span class="nota">(después simulador)</span></a>
+          </li>
+          <li>
+            <a href="hoja4.html">Hoja 4 — Checkpoint C3 <span class="nota">(después circuitos en papel)</span></a>
+          </li>
+          <li>
+            <a href="hoja5.html">Hoja 5 — Post-test <span class="nota">(cierre)</span></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>¿Dónde quedó mi prueba?</h2>
+        <p class="meta-line" id="estado-guardado">Comprobando…</p>
+        <button type="button" id="btn-descargar-csv" class="secundario" hidden>
+          Descargar mi archivo CSV
+        </button>
+        <p class="meta-line small">
+          Hojas 1–4: guardado interno en <strong>esta PC y este Chrome</strong>. El archivo
+          <code>STEM2026_ID.csv</code> se baja al completar la Hoja 5 o con el botón de arriba.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Simulador (Fase 2)</h2>
+        <p class="meta-line">Circuitos en papel en el navegador — sin Python.</p>
+        <p><a href="../simulador/index.html">Abrir simulador web →</a></p>
+      </div>
+
+      <div class="card">
+        <h2>Facilitadoras</h2>
+        <p class="meta-line">
+          Índice de enlaces, recolección de CSV y calificación automática (solo equipo).
+        </p>
+        <p><a href="facilitador.html">Abrir panel facilitador →</a></p>
+      </div>
+
+      <footer>
+        <p>Mismos ítems que <code>docs/Prueba_Conocimiento_Circuitos_Estudiante.pdf</code>.</p>
+      </footer>
+    </div>
+    <script src="js/preguntas.js"></script>
+    <script src="js/almacen.js"></script>
+    <script>
+      document.getElementById("titulo-doc").textContent = STEM_PREGUNTAS.meta.titulo;
+      document.getElementById("subtitulo-doc").textContent = STEM_PREGUNTAS.meta.subtitulo;
+
+      (function () {
+        const estado = document.getElementById("estado-guardado");
+        const btn = document.getElementById("btn-descargar-csv");
+        const rec = window.STEM_ALMACEN.loadAll();
+        if (!rec || !rec.id_anonimo) {
+          estado.textContent =
+            "Aún no hay respuestas en esta computadora (completa la Hoja 1 con tu ID).";
+          return;
+        }
+        const hojas = Object.keys(rec.hojas || {}).sort();
+        estado.textContent = `ID ${rec.id_anonimo} (brigada ${rec.brigada || "?"}). Hojas guardadas: ${hojas.join(", ") || "ninguna"}.`;
+        btn.hidden = false;
+        btn.addEventListener("click", () => window.STEM_ALMACEN.downloadCsv(rec));
+      })();
+    </script>
+  </body>
+</html>

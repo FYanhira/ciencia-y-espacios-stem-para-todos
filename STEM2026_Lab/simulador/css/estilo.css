@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #f0f2f5;
+  color: #222;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 300px);
+  gap: 0;
+  min-height: 100vh;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.topbar {
+  grid-column: 1 / -1;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.05rem;
+  flex: 1 1 200px;
+}
+
+.topbar label {
+  margin-right: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.canvas-wrap {
+  padding: 0.5rem 0.75rem;
+  min-height: 620px;
+}
+
+canvas {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 680px;
+  background: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: block;
+}
+
+.panel {
+  background: #fff;
+  border-left: 1px solid #ddd;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.panel section {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.panel label.block {
+  display: block;
+  margin: 0.35rem 0;
+  font-size: 0.92rem;
+}
+
+button {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin: 0.35rem 0;
+  border: 1px solid #1565c0;
+  background: #1565c0;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+button.secondary {
+  background: #fff;
+  color: #1565c0;
+}
+
+.hint {
+  font-size: 0.82rem;
+  margin: 0.35rem 0;
+}
+
+.hint.ok {
+  color: #1b5e20;
+}
+
+.hint.err {
+  color: #b71c1c;
+}
+
+#interpretacion,
+#pred-result {
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+#pred-result {
+  color: #1565c0;
+}
+
+.ohm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem 0.5rem;
+}
+
+footer.note {
+  grid-column: 1 / -1;
+  font-size: 0.78rem;
+  color: #666;
+  padding: 0.5rem 1rem 1rem;
+}
+
+footer.note a {
+  color: #1565c0;
+}

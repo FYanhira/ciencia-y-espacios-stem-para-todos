@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simulador — Circuitos en papel | STEM 2026</title>
+    <meta name="theme-color" content="#1565c0" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="topbar">
+        <h1>Simulador — Circuitos en papel (Fase 2)</h1>
+        <span>Tipo de plantilla:</span>
+        <label><input type="radio" name="kind" value="simple" checked /> Simple</label>
+        <label><input type="radio" name="kind" value="series" /> Serie</label>
+        <label><input type="radio" name="kind" value="parallel" /> Paralelo</label>
+      </header>
+
+      <div class="canvas-wrap">
+        <p id="js-error" class="hint err" hidden></p>
+        <canvas id="lienzo" width="800" height="680" aria-label="Diagrama del circuito"></canvas>
+      </div>
+
+      <aside class="panel">
+        <h2>Controles</h2>
+
+        <section>
+          <label class="block">
+            <input type="checkbox" id="switch-closed" />
+            Doblez cerrado (circuito cerrado)
+          </label>
+          <button type="button" id="flip-battery" class="secondary">Invertir polaridad de la pila</button>
+          <p id="battery-hint" class="hint"></p>
+          <div id="led-buttons"></div>
+        </section>
+
+        <section>
+          <label class="block">
+            <input type="checkbox" id="resistor-on" checked />
+            Resistencia en serie con cada LED
+          </label>
+          <p class="hint">Valor de R (Ω):</p>
+          <div class="ohm-grid">
+            <label><input type="radio" name="resistor-ohm" value="100" /> 100</label>
+            <label><input type="radio" name="resistor-ohm" value="220" checked /> 220</label>
+            <label><input type="radio" name="resistor-ohm" value="470" /> 470</label>
+            <label><input type="radio" name="resistor-ohm" value="1000" /> 1000</label>
+          </div>
+          <p id="resistor-hint" class="hint"></p>
+        </section>
+
+        <section>
+          <p class="hint"><strong>Pilas (coin cell)</strong></p>
+          <label class="block">
+            <input type="radio" name="battery-count" value="1" checked />
+            1 pila apilada (~3 V)
+          </label>
+          <label class="block">
+            <input type="radio" name="battery-count" value="2" />
+            2 pilas apiladas (~6 V)
+          </label>
+          <p class="hint">La 2.ª pila va ENCIMA de la 1.ª (plantilla serie).</p>
+        </section>
+
+        <section>
+          <p class="hint"><strong>Predicción (Fase 2)</strong></p>
+          <label class="block"><input type="radio" name="pred" value="on" /> Creo que encenderá(n)</label>
+          <label class="block"><input type="radio" name="pred" value="off" /> Creo que no encenderá(n)</label>
+          <label class="block"><input type="radio" name="pred" value="unsure" /> No estoy segura</label>
+          <button type="button" id="pred-check">Comprobar predicción</button>
+          <p id="pred-result"></p>
+        </section>
+
+        <section>
+          <p class="hint"><strong>Interpretación</strong></p>
+          <p id="interpretacion"></p>
+          <button type="button" id="reset" class="secondary">Reiniciar plantilla</button>
+        </section>
+      </aside>
+
+      <footer class="note">
+        Modelo cualitativo para el taller (no SPICE). Abre desde el lab sin Python.
+        <a href="../cuestionario/index.html">Cuestionario HTML</a>
+      </footer>
+    </div>
+    <script src="js/circuit_model.js"></script>
+    <script src="js/dibujo.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

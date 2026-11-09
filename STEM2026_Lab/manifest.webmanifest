@@ -1,0 +1,19 @@
+{
+  "name": "STEM Mujeres 2026 — Lab",
+  "short_name": "STEM 2026",
+  "description": "Prueba de conocimiento y simulador de circuitos en papel",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d47a1",
+  "theme_color": "#1565c0",
+  "lang": "es-MX",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

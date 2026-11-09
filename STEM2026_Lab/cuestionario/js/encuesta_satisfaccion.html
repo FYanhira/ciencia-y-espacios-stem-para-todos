@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Encuesta de experiencia - Mujeres en la Ciencia 2026</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+    <style>
+      .likert-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 0.75rem;
+        margin-top: 0.5rem;
+      }
+      .likert-row label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.95rem;
+      }
+      .bloque-titulo {
+        font-weight: 600;
+        margin: 1.25rem 0 0.5rem;
+        color: var(--accent);
+      }
+      textarea {
+        width: 100%;
+        min-height: 4rem;
+        padding: 0.5rem;
+        font: inherit;
+      }
+      .ok-msg {
+        background: #e8f5e9;
+        border: 1px solid #a5d6a7;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1 id="titulo-doc"></h1>
+        <p id="subtitulo-doc"></p>
+        <p class="aviso-id" id="aviso-post">
+          Usa el <strong>mismo ID anónimo</strong> de la prueba del taller (ej. B1-07, A2-03).
+          Tiempo aproximado: 5 min.
+        </p>
+      </header>
+
+      <form id="form-encuesta">
+        <div id="meta-box" class="meta-box">
+          <div class="campo-meta">
+            <label for="id_anonimo">ID anónimo</label>
+            <input type="text" id="id_anonimo" name="id_anonimo" required placeholder="B1-07" />
+          </div>
+          <div class="campo-meta">
+            <label for="brigada">Brigada</label>
+            <select id="brigada" name="brigada" required>
+              <option value="">Elige...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+        </div>
+
+        <p id="escala-leyenda" class="small" style="color: #555"></p>
+        <div id="items-box"></div>
+
+        <div class="item" style="margin-top: 1.5rem">
+          <label for="abierta">Opcional: ¿Qué parte del taller te ayudó más? (respuesta breve)</label>
+          <textarea id="abierta" name="abierta" maxlength="500"></textarea>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-prim">Enviar y descargar mi respuesta (CSV)</button>
+        </div>
+      </form>
+
+      <div id="mensaje-ok" hidden class="ok-msg"></div>
+
+      <p class="small" style="margin-top: 2rem">
+        <a href="index.html">Volver a la prueba de conocimiento</a>
+        |
+        <a href="../index.html">Menú del lab</a>
+      </p>
+    </div>
+
+    <script src="js/encuesta_satisfaccion_items.js"></script>
+    <script src="js/almacen_sat.js"></script>
+    <script>
+      (function () {
+        const cfg = window.STEM_ENCUESTA_SAT;
+        document.getElementById("titulo-doc").textContent = cfg.meta.titulo;
+        document.getElementById("subtitulo-doc").textContent = cfg.meta.subtitulo;
+        document.getElementById("escala-leyenda").textContent = cfg.meta.escala;
+
+        const box = document.getElementById("items-box");
+        let bloqueActual = "";
+        cfg.items.forEach((item) => {
+          if (item.bloque !== bloqueActual) {
+            bloqueActual = item.bloque;
+            const h = document.createElement("p");
+            h.className = "bloque-titulo";
+            h.textContent = bloqueActual;
+            box.appendChild(h);
+          }
+          const fieldset = document.createElement("fieldset");
+          fieldset.className = "item";
+          const legend = document.createElement("legend");
+          legend.textContent = item.label;
+          fieldset.appendChild(legend);
+          const row = document.createElement("div");
+          row.className = "likert-row";
+          cfg.likert.forEach((op) => {
+            const id = `${item.id}_${op.v}`;
+            const lab = document.createElement("label");
+            lab.htmlFor = id;
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = item.id;
+            input.id = id;
+            input.value = op.v;
+            input.required = true;
+            lab.appendChild(input);
+            lab.appendChild(document.createTextNode(op.t));
+            row.appendChild(lab);
+          });
+          fieldset.appendChild(row);
+          box.appendChild(fieldset);
+        });
+
+        document.getElementById("form-encuesta").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          const record = {};
+          window.STEM_ALMACEN_SAT.KEYS.forEach((k) => {
+            if (k === "exportado_en") return;
+            record[k] = fd.get(k) || "";
+          });
+          try {
+            window.STEM_ALMACEN_SAT.save(record);
+            window.STEM_ALMACEN_SAT.downloadCsv(record);
+            const ok = document.getElementById("mensaje-ok");
+            ok.hidden = false;
+            ok.innerHTML =
+              "Gracias. Se descargó <strong>STEM2026_SAT_" +
+              record.id_anonimo +
+              ".csv</strong>. Si la facilitadora lo pidió, envíale ese archivo por el medio acordado (correo, Drive, etc.).";
+            e.target.querySelector(".acciones").hidden = true;
+            window.scrollTo(0, 0);
+          } catch (err) {
+            alert(err.message || "Error al guardar");
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

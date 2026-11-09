@@ -1,0 +1,36 @@
+Mujeres en la Ciencia 2026 - Lab portable (STEM2026_Lab) (cuestionario + simulador)
+===========================================================
+
+Copia TODA la carpeta "STEM2026_Lab" (incluye la subcarpeta "servidor").
+No hace falta Python ni instalar nada más. No usa rutas de otra computadora.
+
+REQUISITO
+---------
+- Google Chrome (recomendado) o Edge
+- Windows 64 bits o Mac (Intel o Apple Silicon)
+
+PRIMER USO EN WINDOWS
+---------------------
+Al ejecutar iniciar_lab.bat, Windows puede mostrar advertencia.
+Elige: Más información > Ejecutar de todas formas.
+
+CÓMO ABRIR
+----------
+1. Copia la carpeta desde USB.
+2. Windows: iniciar_lab.bat | Mac: ABRIR_LAB.command
+3. Navegador en http://127.0.0.1:8765/
+4. Menú: Prueba de conocimiento, Simulador o Encuesta de experiencia.
+
+ENCUESTA LIKERT (DESPUÉS DEL TALLER)
+------------------------------------
+- Encuesta de experiencia (Likert 1-5, unos 5 min).
+- Mismo ID anónimo que la prueba (ej. B1-07).
+- Descarga STEM2026_SAT_<ID>.csv al enviar.
+
+DATOS PRUEBA DE CONOCIMIENTO
+----------------------------
+Hoja 5 descarga CSV. Facilitadora: cuestionario/facilitador.html
+
+REGENERAR PAQUETE
+-----------------
+./scripts/build_consolidado_lab.sh

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panel facilitador — STEM 2026</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Panel facilitador</h1>
+        <p>Recolección y calificación (no compartir con participantes).</p>
+      </header>
+
+      <div class="card">
+        <h2>1. Recoger archivos CSV</h2>
+        <p class="meta-line">
+          Al terminar la Hoja 5, cada participante descarga <code>STEM2026_B1-07.csv</code>.
+          Guárdalos en una carpeta y selecciónalos aquí (puedes elegir varios a la vez).
+        </p>
+        <input type="file" id="csv-files" accept=".csv,text/csv" multiple />
+      </div>
+
+      <div class="card">
+        <h2>2. Sin tiempo entre brigadas</h2>
+        <p class="meta-line">
+          <strong>Ideal:</strong> filas o PCs distintas (Brigada 1 en unas, Brigada 2 en otras) — no
+          hace falta limpiar ni sacar CSV al instante.
+        </p>
+        <p class="meta-line">
+          <strong>Mismas PCs seguidas:</strong> no limpies entre brigadas. En Hoja 1 la Brigada 2
+          escribe <strong>ID nuevo</strong> (ej. B2-07) y elige <strong>Brigada 2</strong>.
+        </p>
+        <p><a href="limpiar_esta_pc.html">Recoger / limpiar esta PC →</a></p>
+        <p class="meta-line small">
+          Al cierre del día (o en receso): en cada PC, “Descargar todo lo guardado” → USB. Luego, si
+          quieres, borrar.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>3. Resultados</h2>
+        <p class="meta-line" id="resumen"></p>
+        <div id="tabla-wrap"></div>
+        <div class="acciones" style="margin-top: 1rem">
+          <button type="button" id="btn-export" class="secundario" disabled>
+            Descargar tabla consolidada (CSV)
+          </button>
+        </div>
+      </div>
+
+      <footer><a href="index.html">← Índice participantes</a></footer>
+    </div>
+    <script src="js/clave.js"></script>
+    <script src="js/almacen.js"></script>
+    <script>
+      const clave = window.STEM_CLAVE;
+      const bloques = window.STEM_BLOQUES;
+
+      function puntaje(respuestas, keys) {
+        let n = 0;
+        keys.forEach((k) => {
+          if ((respuestas[k] || "").toUpperCase() === clave[k]) n += 1;
+        });
+        return n;
+      }
+
+      function parseCsv(text) {
+        const lines = text.trim().split(/\r?\n/).filter(Boolean);
+        if (lines.length < 2) return null;
+        const headers = lines[0].split(",");
+        const row = lines[1].split(",");
+        const obj = {};
+        headers.forEach((h, i) => {
+          obj[h.trim()] = (row[i] || "").trim();
+        });
+        return obj;
+      }
+
+      let consolidado = [];
+
+      document.getElementById("csv-files").addEventListener("change", async (ev) => {
+        const files = [...ev.target.files];
+        consolidado = [];
+        for (const f of files) {
+          const text = await f.text();
+          const row = parseCsv(text.replace(/^\ufeff/, ""));
+          if (!row || !row.id_anonimo) continue;
+          const resp = {};
+          Object.keys(clave).forEach((k) => {
+            resp[k] = row[k] || "";
+          });
+          consolidado.push({
+            id_anonimo: row.id_anonimo,
+            brigada: row.brigada,
+            respuestas: resp,
+            pre: puntaje(resp, bloques.pre),
+            c1: puntaje(resp, bloques.c1),
+            c2: puntaje(resp, bloques.c2),
+            c3: puntaje(resp, bloques.c3),
+            post: puntaje(resp, bloques.post),
+          });
+        }
+        consolidado.sort((a, b) => a.id_anonimo.localeCompare(b.id_anonimo));
+        renderTabla();
+      });
+
+      function renderTabla() {
+        const wrap = document.getElementById("tabla-wrap");
+        const resumen = document.getElementById("resumen");
+        const btn = document.getElementById("btn-export");
+        if (!consolidado.length) {
+          wrap.innerHTML = "";
+          resumen.textContent = "Sin archivos aún.";
+          btn.disabled = true;
+          return;
+        }
+        resumen.textContent = `${consolidado.length} participantes cargadas. Puntajes: pre/post /8; checkpoints /3.`;
+        let html =
+          "<table class='facil-table'><thead><tr><th>ID</th><th>Brig.</th><th>Pre</th><th>C1</th><th>C2</th><th>C3</th><th>Post</th></tr></thead><tbody>";
+        consolidado.forEach((r) => {
+          html += `<tr><td>${r.id_anonimo}</td><td>${r.brigada}</td><td>${r.pre}/8</td><td>${r.c1}/3</td><td>${r.c2}/3</td><td>${r.c3}/3</td><td>${r.post}/8</td></tr>`;
+        });
+        html += "</tbody></table>";
+        wrap.innerHTML = html;
+        btn.disabled = false;
+      }
+
+      document.getElementById("btn-export").addEventListener("click", () => {
+        const header =
+          "id_anonimo,brigada,pre_8,c1_3,c2_3,c3_3,post_8," + Object.keys(clave).join(",");
+        const lines = [header];
+        consolidado.forEach((r) => {
+          const vals = Object.keys(clave).map((k) => r.respuestas[k] || "");
+          lines.push(
+            [r.id_anonimo, r.brigada, r.pre, r.c1, r.c2, r.c3, r.post, ...vals].join(",")
+          );
+        });
+        const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "STEM2026_consolidado_facilitador.csv";
+        a.click();
+      });
+    </script>
+  </body>
+</html>

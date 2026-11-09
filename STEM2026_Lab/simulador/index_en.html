@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Paper-circuit simulator | Mujeres en la Ciencia 2026</title>
+    <meta name="theme-color" content="#1565c0" />
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="topbar">
+        <h1>Paper-circuit simulator (Phase 2)</h1>
+        <span>Template:</span>
+        <label><input type="radio" name="kind" value="simple" checked /> Simple</label>
+        <label><input type="radio" name="kind" value="series" /> Series</label>
+        <label><input type="radio" name="kind" value="parallel" /> Parallel</label>
+      </header>
+
+      <div class="canvas-wrap">
+        <p id="js-error" class="hint err" hidden></p>
+        <canvas id="lienzo" width="800" height="680" aria-label="Circuit diagram"></canvas>
+      </div>
+
+      <aside class="panel">
+        <h2>Controls</h2>
+
+        <section>
+          <label class="block">
+            <input type="checkbox" id="switch-closed" checked />
+            Fold closed (complete circuit)
+          </label>
+          <button type="button" id="flip-battery" class="secondary">Flip battery polarity</button>
+          <p id="battery-hint" class="hint"></p>
+          <div id="led-buttons"></div>
+        </section>
+
+        <section>
+          <label class="block">
+            <input type="checkbox" id="resistor-on" checked />
+            Resistor in series with each LED
+          </label>
+          <p class="hint">R (?):</p>
+          <div class="ohm-grid">
+            <label><input type="radio" name="resistor-ohm" value="100" /> 100</label>
+            <label><input type="radio" name="resistor-ohm" value="220" checked /> 220</label>
+            <label><input type="radio" name="resistor-ohm" value="470" /> 470</label>
+            <label><input type="radio" name="resistor-ohm" value="1000" /> 1000</label>
+          </div>
+          <p id="resistor-hint" class="hint"></p>
+        </section>
+
+        <section>
+          <p class="hint"><strong>Coin cells</strong></p>
+          <label class="block">
+            <input type="radio" name="battery-count" value="1" checked />
+            1 cell (~3 V)
+          </label>
+          <label class="block">
+            <input type="radio" name="battery-count" value="2" />
+            2 stacked cells (~6 V)
+          </label>
+          <p class="hint">Second cell stacks on the first (series template).</p>
+        </section>
+
+        <section>
+          <p class="hint"><strong>Prediction (Phase 2)</strong></p>
+          <label class="block"><input type="radio" name="pred" value="on" checked /> I think it will light</label>
+          <label class="block"><input type="radio" name="pred" value="off" /> I think it will not light</label>
+          <label class="block"><input type="radio" name="pred" value="unsure" /> Not sure</label>
+          <button type="button" id="pred-check">Check prediction</button>
+          <p id="pred-result"></p>
+        </section>
+
+        <section>
+          <p class="hint"><strong>Interpretation</strong></p>
+          <p id="interpretacion"></p>
+          <button type="button" id="reset" class="secondary">Reset template</button>
+        </section>
+      </aside>
+
+      <footer class="note">
+        Qualitative model for the workshop (not SPICE). Served from the local lab kit.
+      </footer>
+    </div>
+    <script src="js/circuit_model.js"></script>
+    <script src="js/dibujo.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

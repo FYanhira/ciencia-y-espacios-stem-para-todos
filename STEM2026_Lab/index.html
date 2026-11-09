@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1565c0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="STEM 2026" />
+    <title>Mujeres en la Ciencia 2026 — Lab</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="lab.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <h1>Mujeres en la Ciencia 2026</h1>
+        <p class="lead">Circuitos en papel — lab UANL</p>
+      </header>
+
+      <p class="aviso">
+        Abre esta misma dirección en <strong>Chrome</strong>. La facilitadora dirá cuándo usar cada
+        herramienta.
+      </p>
+
+      <nav class="apps">
+        <a class="app-card" href="cuestionario/index.html">
+          <span class="app-icon" aria-hidden="true">📝</span>
+          <span class="app-title">Prueba de conocimiento</span>
+          <span class="app-desc">5 hojas (pre, checkpoints, post)</span>
+        </a>
+        <a class="app-card" href="cuestionario/encuesta_satisfaccion.html">
+          <span class="app-icon" aria-hidden="true">💬</span>
+          <span class="app-title">Encuesta de experiencia</span>
+          <span class="app-desc">Likert post-taller (mismo ID anónimo)</span>
+        </a>
+        <a class="app-card" href="simulador/index.html">
+          <span class="app-icon" aria-hidden="true">⚡</span>
+          <span class="app-title">Simulador</span>
+          <span class="app-desc">Fase 2 — circuitos en papel</span>
+        </a>
+      </nav>
+
+      <section class="install" id="install-block" hidden>
+        <h2>Usar como app</h2>
+        <p>
+          En Chrome: menú <strong>⋮</strong> →
+          <strong>Instalar Mujeres en la Ciencia 2026…</strong> (o “Instalar aplicación”). Se abre en su
+          propia ventana, sin barra de pestañas.
+        </p>
+        <button type="button" id="btn-install" hidden>Instalar ahora</button>
+      </section>
+
+      <footer>
+        <p class="url-hint">
+          Liga del lab (ejemplo): <code id="current-url"></code>
+        </p>
+        <p class="small">Sin Google · sin cuenta · funciona en red local</p>
+      </footer>
+    </main>
+    <script src="lab.js"></script>
+  </body>
+</html>
