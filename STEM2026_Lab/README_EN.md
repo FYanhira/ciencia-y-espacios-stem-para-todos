@@ -34,9 +34,14 @@ No Python install required (bundled local server binaries in `servidor/`).
 
 Answer keys for scoring exports live in `cuestionario/js/clave.js` (facilitator use only). Participant-facing pages do not embed correct answers.
 
+## Version
+
+Stable snapshot for citation and replication: **tag `v1.0-mujeres-2026`**  
+https://github.com/FYanhira/ciencia-y-espacios-stem-para-todos/tree/v1.0-mujeres-2026/STEM2026_Lab
+
 ## Citation
 
-If you use this kit in research or outreach reporting, please cite the associated publication and link to this repository.
+If you use this kit in research or outreach reporting, please cite the associated publication and link to this repository (prefer the tagged release above).
 
 ## License
 
